@@ -19,8 +19,7 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
 
         line = line.lower()     # convert to lower case
         line = line.strip()     # remove leading/trailing blanks
-        # .sort(key=str.lower)
-        # if line is just twitter handle
+
         # line 657 - has period
 
         if line.startswith("https://twitter.com/"):
