@@ -31,7 +31,7 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
             #print(line.replace("http://www.", "https://"))
             Dirty_Twitter_fields_list.append(line.replace("http://www.", "https://")+"\n") # add the cleaned item to the list
         if line.startswith("_"):
-            print("https://twitter.com/"+line)
+            #print("https://twitter.com/"+line)
             Dirty_Twitter_fields_list.append("https://twitter.com/"+line+"\n")
 
         if line.startswith("@") and line not in Dirty_Twitter_fields_list:
@@ -40,7 +40,9 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
             Dirty_Twitter_fields_list.append(line.replace("@", "https://twitter.com/")+"\n")  # add the cleaned item to the list
 
     #print(Dirty_Twitter_fields_list)
+    Dirty_Twitter_fields_list = list(set(Dirty_Twitter_fields_list)) #remove duplicates
     Dirty_Twitter_fields_list.sort() # sort alphabetically
+
     fou.writelines(Dirty_Twitter_fields_list) # write to text file
     fou.close() #close text file
 
