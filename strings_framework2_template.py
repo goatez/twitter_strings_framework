@@ -7,28 +7,25 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
 
     for line in fin:
 
-        if line.startswith("#"):  # skip it if the line begins with a #
+        if line.startswith("#"):  # skip if the line begins with a #
             continue
-        if line == '\n': # passes blank line with no white space character
+        if line == '\n': # skip any blank lines with no white space character
             continue
-        if line == 'NA': # passes 'NA' entry
-            continue
-        if "," in line: # passes entry with "," - line 667,701
-            #print(line)
+        if "," in line: # skip if the line contains "," (line 667,701)
             continue
 
         line = line.lower()     # convert to lower case
         line = line.strip()     # remove leading/trailing blanks
 
-        # line 657 - has period
-
         if line.startswith("https://twitter.com/"):
             #print(line)
-            Dirty_Twitter_fields_list.append(line+"\n")  # add the cleaned item to the list
+            Dirty_Twitter_fields_list.append(line+"\n")
+
         if line.startswith("http://www.twitter.com/"):
             #print(line)
             #print(line.replace("http://www.", "https://"))
-            Dirty_Twitter_fields_list.append(line.replace("http://www.", "https://")+"\n") # add the cleaned item to the list
+            Dirty_Twitter_fields_list.append(line.replace("http://www.", "https://")+"\n")
+
         if line.startswith("_"):
             #print("https://twitter.com/"+line)
             Dirty_Twitter_fields_list.append("https://twitter.com/"+line+"\n")
@@ -36,11 +33,22 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
         if line.startswith("@") and line not in Dirty_Twitter_fields_list:
             #print(line)
             #print(line.replace("@", "https://twitter.com/"))
-            Dirty_Twitter_fields_list.append(line.replace("@", "https://twitter.com/")+"\n")  # add the cleaned item to the list
+            Dirty_Twitter_fields_list.append(line.replace("@", "https://twitter.com/")+"\n")
 
-    #print(Dirty_Twitter_fields_list)
+        else:
+            print(line)
+            if line.startswith("https://twitter.com/"):
+                continue
+            if line.startswith("http://www.twitter.com/"):
+                continue
+            if " " in line:
+                continue
+            else:
+                Dirty_Twitter_fields_list.append("https://twitter.com/"+line+"\n")
+
     Dirty_Twitter_fields_list = list(set(Dirty_Twitter_fields_list)) #remove duplicates
     Dirty_Twitter_fields_list.sort() # sort alphabetically
+    del Dirty_Twitter_fields_list[0]
 
     fou.writelines(Dirty_Twitter_fields_list) # write to text file
     fou.close() #close text file
