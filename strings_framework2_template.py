@@ -7,6 +7,11 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
 
     for line in fin:
 
+        if "map" in line.lower():
+            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
+        if "zoo" in line.lower():
+            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
+
         if line.startswith("#"):  # skip if the line begins with a #
             continue
         if line == '\n': # skip any blank lines with no white space character
@@ -36,7 +41,7 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
             Dirty_Twitter_fields_list.append(line.replace("@", "https://twitter.com/")+"\n")
 
         else:
-            print(line)
+            #print(line)
             if line.startswith("https://twitter.com/"):
                 continue
             if line.startswith("http://www.twitter.com/"):
@@ -48,9 +53,9 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
 
     Dirty_Twitter_fields_list = list(set(Dirty_Twitter_fields_list)) #remove duplicates
     Dirty_Twitter_fields_list.sort() # sort alphabetically
-    del Dirty_Twitter_fields_list[0]
+    del Dirty_Twitter_fields_list[16]
 
     fou.writelines(Dirty_Twitter_fields_list) # write to text file
-    fou.close() #close text file
 
+fou.close() #close text file
 Dirty_Twitter_fields_list
