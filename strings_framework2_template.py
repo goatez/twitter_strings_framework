@@ -7,10 +7,10 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
 
     for line in fin:
 
-        if "map" in line.lower():  # searches for handles with "map" in them
-            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
-        if "zoo" in line.lower():  #searches for handles with "zoo" in them
-            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
+        # if "map" in line.lower():  # searches for handles with "map" in them
+        #     Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
+        # if "zoo" in line.lower():  #searches for handles with "zoo" in them
+        #     Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
 
         if line.startswith("#"):  # skip if the line begins with a #
             continue
@@ -54,18 +54,31 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
 
     Dirty_Twitter_fields_list = list(set(Dirty_Twitter_fields_list)) #remove duplicates
     Dirty_Twitter_fields_list.sort() # sort alphabetically
-    del Dirty_Twitter_fields_list[16]
-    #del Dirty_Twitter_fields_list[0]
+    #del Dirty_Twitter_fields_list[16]
+    del Dirty_Twitter_fields_list[0]
+
+    url = 0
+    for line in Dirty_Twitter_fields_list: #count urls over 20 characters in length
+        if len(line) > 20:
+            url+=1
+    print("Total number of urls over 20 characters:", url)
 
     count = 0   # counter for number of lines starting with "https://twitter.com"
     for line in Dirty_Twitter_fields_list:
         if line.startswith("https://twitter.com/"):
             count+=1
-    #if count == len(Dirty_Twitter_fields_list):
-    if count == 330:
+    if count == len(Dirty_Twitter_fields_list):
+    #if count == 330:
         print("All strings are equal")
-        Dirty_Twitter_fields_list.append("All strings are equal")
+        Dirty_Twitter_fields_list.append("All strings are equal"+"\n")
 
+
+with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitter.txt", "w") as fou:
+    for line in fin:
+        if "map" in line.lower():  # searches for handles with "map" in them
+            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
+        if "zoo" in line.lower():  #searches for handles with "zoo" in them
+            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
 
 
     fou.writelines(Dirty_Twitter_fields_list) # write to text file
