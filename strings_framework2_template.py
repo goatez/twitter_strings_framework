@@ -72,14 +72,14 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
     #if count == 330:
         print("All strings are equal")
         Dirty_Twitter_fields_list.append("All strings are equal"+"\n")
-        
 
-with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitter.txt", "w") as fou:
-    for line in fin:
-        if "map" in line.lower():  # searches for handles with "map" in them
-            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
-        if "zoo" in line.lower():  #searches for handles with "zoo" in them
-            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+line.lower())
+
+#with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitter.txt", "w") as fou:
+    for handle in Dirty_Twitter_fields_list:
+        if "map" in handle:  # searches for handles with "map" in them
+            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+handle)
+        if "zoo" in handle:  #searches for handles with "zoo" in them
+            Dirty_Twitter_fields_list.append("Hey I found map or zoo in "+handle)
 
     fou.writelines(Dirty_Twitter_fields_list) # write to text file
 
