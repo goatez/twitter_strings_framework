@@ -1,8 +1,8 @@
 import os
-os.chdir('C:\\Users\\goat\\Desktop\\309_data')
 os.getcwd()
+os.chdir('C:\\Users\\goat\\Documents\\GitHub\\twitter_strings_framework')
 
-with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitter.txt", "w") as fou:
+with open("20170405twitterdirty.txt", "r") as fin, open("cleaned_twitter.txt", "w") as fou:
     Dirty_Twitter_fields_list = []
 
     for line in fin:
@@ -50,7 +50,6 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
                 continue
             else:
                 Dirty_Twitter_fields_list.append("https://twitter.com/"+line+"\n")
-
 
     Dirty_Twitter_fields_list = list(set(Dirty_Twitter_fields_list)) #remove duplicates
     Dirty_Twitter_fields_list.sort() # sort alphabetically

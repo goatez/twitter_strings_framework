@@ -1,8 +1,8 @@
 import os
-os.chdir('C:\\Users\\goat\\Desktop\\309_data')
 os.getcwd()
+os.chdir('C:\\Users\\goat\\Documents\\GitHub\\twitter_strings_framework')
 
-with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitter.txt", "w") as fou:
+with open("20170405twitterdirty.txt", "r") as fin, open("cleaned_twitter.txt", "w") as fou:
     Dirty_Twitter_fields_list = []
 
     for line in fin:
@@ -51,11 +51,10 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
             else:
                 Dirty_Twitter_fields_list.append("https://twitter.com/"+line+"\n")
 
-
     Dirty_Twitter_fields_list = list(set(Dirty_Twitter_fields_list)) #remove duplicates
     Dirty_Twitter_fields_list.sort() # sort alphabetically
     del Dirty_Twitter_fields_list[16]
-    #del Dirty_Twitter_fields_list[0]
+    # del Dirty_Twitter_fields_list[0]
 
     count = 0   # counter for number of lines starting with "https://twitter.com"
     for line in Dirty_Twitter_fields_list:
@@ -65,8 +64,6 @@ with open("data/20170405twitterdirty.txt", "r") as fin, open("data/cleaned_twitt
     if count == 330:
         print("All strings are equal")
         Dirty_Twitter_fields_list.append("All strings are equal")
-
-
 
     fou.writelines(Dirty_Twitter_fields_list) # write to text file
 
